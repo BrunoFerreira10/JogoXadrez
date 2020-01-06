@@ -73,9 +73,7 @@ public class ChessMatch {
 			throw new ChessException("You cannot put yourself in check!!! Want to lose?!");
 		}
 		
-		check = testCheck(opponent(currentPlayer));
-		
-		
+		check = testCheck(opponent(currentPlayer));		
 		checkmate = testCheckmate(opponent(currentPlayer));
 			
 		if(!checkmate)
@@ -115,6 +113,8 @@ public class ChessMatch {
 			piecesOnTheBoard.remove(capturedPiece);
 			capturedPieces.add(capturedPiece);
 		}		
+		
+		((ChessPiece)piece).increaseMoveCount();
 		return capturedPiece;
 	}
 	
@@ -126,7 +126,9 @@ public class ChessMatch {
 			board.placePiece(capturedPiece, targetPosition);	
 			capturedPieces.remove(capturedPiece);
 			piecesOnTheBoard.add(capturedPiece);			
-		}					
+		}
+		
+		((ChessPiece)piece).decreaseMoveCount();
 	}
 	
 	private Color opponent(Color color) {
