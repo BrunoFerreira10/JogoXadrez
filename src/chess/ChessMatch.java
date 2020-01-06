@@ -106,29 +106,27 @@ public class ChessMatch {
 
 	private Piece makeMove(Position sourcePosition, Position targetPosition) {
 		Piece piece = board.removePiece(sourcePosition);
+		((ChessPiece)piece).increaseMoveCount();
 		Piece capturedPiece = board.removePiece(targetPosition);		
 		board.placePiece(piece, targetPosition);
 		
 		if(capturedPiece != null) {
 			piecesOnTheBoard.remove(capturedPiece);
 			capturedPieces.add(capturedPiece);
-		}		
-		
-		((ChessPiece)piece).increaseMoveCount();
+		}	
 		return capturedPiece;
 	}
 	
 	private void undoMove(Position sourcePosition, Position targetPosition, Piece capturedPiece) {
-		Piece piece = board.removePiece(targetPosition);			
+		Piece piece = board.removePiece(targetPosition);	
+		((ChessPiece)piece).decreaseMoveCount();
 		board.placePiece(piece, sourcePosition);
 		
 		if(capturedPiece != null) {
 			board.placePiece(capturedPiece, targetPosition);	
 			capturedPieces.remove(capturedPiece);
 			piecesOnTheBoard.add(capturedPiece);			
-		}
-		
-		((ChessPiece)piece).decreaseMoveCount();
+		}		
 	}
 	
 	private Color opponent(Color color) {
