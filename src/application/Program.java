@@ -18,6 +18,7 @@ public class Program {
 		ChessMatch chessMatch = new ChessMatch();
 		List<ChessPiece> capturedPieces = new ArrayList<ChessPiece>();
 		
+		
 		while(!chessMatch.isCheckmate()) {
 			
 			try {
